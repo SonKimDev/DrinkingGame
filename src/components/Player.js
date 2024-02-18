@@ -5,21 +5,40 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import colors from '../assets/colors';
 
-const Player = props => {
-  const [currentGender, setCurrentGender] = useState('');
+const Player = ({index, setPlayers}) => {
+  const [playerName, setPlayerName] = useState('');
+  const [currentGender, setCurrentGender] = useState('Male');
+
+  useEffect(() => {
+    updatePlayer();
+  }, [playerName, currentGender]);
 
   const handleSetGender = gender => {
     setCurrentGender(gender);
   };
 
+  const changeName = name => {
+    setPlayerName(name);
+  };
+
+  const updatePlayer = () => {
+    setPlayers({
+      index: index,
+      name: playerName,
+      gender: currentGender,
+    });
+  };
+
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder={`Người chơi ${props.index}`}
+        placeholder={`Người chơi ${index}`}
         style={styles.input}
         placeholderTextColor={'#d3d3d3'}
+        onChangeText={text => changeName(text)}
       />
       <View style={styles.genderContainer}>
         <TouchableOpacity
@@ -28,7 +47,7 @@ const Player = props => {
             currentGender === 'Male' ? styles.genderActiveColor : null,
           ]}
           onPress={() => handleSetGender('Male')}>
-          <Text style={styles.genderText}>Nam</Text>
+          <Text style={styles.genderText}>👨🏻‍💼</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[
@@ -36,7 +55,7 @@ const Player = props => {
             currentGender === 'Female' ? styles.genderActiveColor : null,
           ]}
           onPress={() => handleSetGender('Female')}>
-          <Text style={styles.genderText}>Nữ</Text>
+          <Text style={styles.genderText}>👩🏻‍💼</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -48,7 +67,7 @@ export default Player;
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
-    borderBottomColor: '#d3d3d3',
+    borderBottomColor: colors.lightGray,
     flexDirection: 'row',
     marginBottom: 8,
     paddingBottom: 5,
@@ -62,9 +81,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 10,
-    backgroundColor: '#f41b4e',
+    backgroundColor: colors.background,
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: colors.white,
     overflow: 'hidden',
   },
   genderButton: {
@@ -72,8 +91,11 @@ const styles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
   },
-  genderText: {},
+  genderText: {
+    color: colors.black,
+    fontSize: 20,
+  },
   genderActiveColor: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
   },
 });
