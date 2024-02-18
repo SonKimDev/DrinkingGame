@@ -2,6 +2,7 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../components/HomeScreen';
+import LevelScreen from '../components/LevelScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,7 @@ function Navigation() {
         initialRouteName="Home"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Level" component={LevelScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
