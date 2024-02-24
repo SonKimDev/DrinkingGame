@@ -2,6 +2,7 @@ import {
   Alert,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -53,6 +54,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar hidden />
       <TouchableOpacity style={styles.optionsContainer}>
         <Icon name={'settings-sharp'} size={24} color={colors.white} />
       </TouchableOpacity>
@@ -86,7 +88,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingHorizontal: 24,
+    paddingHorizontal: 8,
   },
   optionsContainer: {
     alignSelf: 'flex-end',
