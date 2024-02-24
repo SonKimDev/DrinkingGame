@@ -1,4 +1,10 @@
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React from 'react';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import colors from '../assets/colors';
@@ -8,6 +14,11 @@ import {useNavigation} from '@react-navigation/native';
 const LevelScreen = ({route}) => {
   const {players} = route.params;
   const navigation = useNavigation();
+
+  const NextToGameScreen = level => {
+    navigation.navigate('Game', {level: level, players: players});
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <TouchableOpacity
@@ -21,14 +32,18 @@ const LevelScreen = ({route}) => {
       </TouchableOpacity>
       <Text style={styles.title}>Chế độ</Text>
       <View style={styles.levelContainer}>
-        <TouchableOpacity style={styles.boxLevel}>
+        <TouchableOpacity
+          style={styles.boxLevel}
+          onPress={() => NextToGameScreen('Nhẹ Nhàng')}>
           <Text style={styles.boxTitle}>Nhẹ Nhàng</Text>
           <Text style={styles.boxDescription}>
             Tìm hiểu người yêu của bạn, những sự thật và thử thách nhẹ nhàng để
             bắt đầu.
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.boxLevel}>
+        <TouchableOpacity
+          style={styles.boxLevel}
+          onPress={() => NextToGameScreen('Mạnh Bạo')}>
           <Text style={styles.boxTitle}>Mạnh Bạo</Text>
           <Text style={styles.boxDescription}>
             Vượt qua giới hạn của bản thân, các bạn sẽ có những phút giây đáng
@@ -46,7 +61,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
-    paddingHorizontal: 16,
+    paddingHorizontal: 8,
     paddingBottom: 48,
   },
   returnButtonContainer: {
